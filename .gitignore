@@ -14,3 +14,7 @@ web-build/
 
 
 app.json
+
+
+venv/
+firebase_service_account.json

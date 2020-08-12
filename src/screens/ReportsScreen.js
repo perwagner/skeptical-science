@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text } from 'native-base';
 
 
-export default class AboutScreen extends Component {
+export default class ReportScreen extends Component {
   render() {
     return (
         <Container>
-          <Text>ABOUT</Text>
+          <Text>ReportScreen</Text>
         </Container>
     );
   }
