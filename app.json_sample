@@ -21,6 +21,15 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "apiKey": "aaa",
+      "authDomain": "bbb",
+      "databaseURL": "ccc",
+      "projectId": "ddd",
+      "storageBucket": "eee",
+      "messagingSenderId": "fff",
+      "measurementId": "ggg"
     }
   }
 }

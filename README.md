@@ -1,7 +1,9 @@
 # skeptical-science
 
 
-
+# Setup
+## app.json
+Copy and rename `app.json_sample` to `app.json` and fill out the blanks in the file.
 
 
 # References

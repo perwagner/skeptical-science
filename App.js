@@ -1,4 +1,8 @@
 import React from 'react';
+import * as firebase from 'firebase';
+// import "firebase/firestore";
+require("firebase/firestore");
+import Constants from 'expo-constants';
 
 import { AppLoading } from 'expo';
 import * as Font from 'expo-font';
@@ -12,6 +16,28 @@ import DrawerNavigator from "./src/navigation/DrawerNavigator";
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
+
+
+// Initialize Firebase
+const firebaseConfig = {
+  apiKey: Constants.manifest.extra.apiKey,
+  authDomain: Constants.manifest.extra.authDomain,
+  databaseURL: Constants.manifest.extra.databaseURL,
+  projectId: Constants.manifest.extra.projectId,
+  storageBucket: Constants.manifest.extra.storageBucket,
+  messagingSenderId: Constants.manifest.extra.messagingSenderId,
+  appId: "app-id",
+  measurementId: Constants.manifest.extra.measurementId
+};
+
+try {
+  firebase.initializeApp(firebaseConfig);
+} catch (e) {
+  console.log('App reloaded, so firebase did not re-initialize');
+}
+
+
+
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -19,7 +45,6 @@ export default class App extends React.Component {
       isReady: false,
     };
   }
-
   async componentDidMount() {
     await Font.loadAsync({
       Roboto: require('native-base/Fonts/Roboto.ttf'),
@@ -29,10 +54,12 @@ export default class App extends React.Component {
     this.setState({ isReady: true });
   }
 
+ 
   render() {
     if (!this.state.isReady) {
       return <AppLoading />;
     }
+    
 
     return (
       <NavigationContainer>

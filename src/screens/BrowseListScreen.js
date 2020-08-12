@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { Container, Header, Content, List, ListItem, Thumbnail, Text, Left, Body, Right, Button, Icon } from 'native-base';
 
 
+
+
+
 const BrowseListScreen = ({ navigation }) => {
   return (
     <Container>
