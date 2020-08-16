@@ -2,7 +2,6 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from '@expo/vector-icons';
 import { BrowseStackNavigator, TopTenStackNavigator, ReportsStackNavigator, AboutStackNavigator } from "./StackNavigator";
-import { BaseRouter } from "@react-navigation/native";
 
 const Tab = createBottomTabNavigator();
 
@@ -27,8 +26,8 @@ const BottomTabNavigator = () => {
       })}    
     >
       <Tab.Screen name="Browse" component={BrowseStackNavigator} />
-      <Tab.Screen name="Top 10" component={TopTenStackNavigator} />
-      <Tab.Screen name="Reports" component={ReportsStackNavigator} />
+      {/* <Tab.Screen name="Top 10" component={TopTenStackNavigator} />
+      <Tab.Screen name="Reports" component={ReportsStackNavigator} /> */}
       <Tab.Screen name="About" component={AboutStackNavigator} />
     </Tab.Navigator>
   );

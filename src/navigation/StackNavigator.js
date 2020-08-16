@@ -7,6 +7,7 @@ import BrowseScreen from "../screens/BrowseScreen";
 import BrowseListScreen from "../screens/BrowseListScreen";
 import TopTenScreen from "../screens/TopTenScreen";
 import ReportsScreen from "../screens/ReportsScreen";
+import IndividualArticleScreen from "../screens/IndividualArticleScreen";
 
 
 const Stack = createStackNavigator();
@@ -33,9 +34,11 @@ const BrowseStackNavigator = () => {
     return (
       <Stack.Navigator screenOptions={screenOptionStyle}>
         <Stack.Screen name="Browse" component={BrowseScreen} />
-        <Stack.Screen name="itsnothappening" component={BrowseListScreen} />
-        <Stack.Screen name="itsnotus" component={BrowseListScreen} />
-        <Stack.Screen name="itsnotbad" component={BrowseListScreen} />        
+        <Stack.Screen 
+          name="Article"
+          component={IndividualArticleScreen} 
+          options={({ route }) => ({ title: route.params.title})}
+        />        
       </Stack.Navigator>
     );
   }

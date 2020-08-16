@@ -1,13 +1,23 @@
 import React, { Component } from 'react';
-import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text } from 'native-base';
+import { StyleSheet } from 'react-native';
+import { Container, Header, Content } from 'native-base';
 
 
 export default class ReportScreen extends Component {
   render() {
     return (
-        <Container>
-          <Text>ReportScreen</Text>
+        <Container style={styles.container}>
+
         </Container>
     );
   }
 }
+
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    color: 'white'
+  }
+})

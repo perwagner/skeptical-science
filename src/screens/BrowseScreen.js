@@ -1,74 +1,88 @@
-import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
-import { Container, Content, Button, Text, Icon } from 'native-base';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, TouchableOpacity } from 'react-native';
+import { Container, Text, List, ListItem, Body } from 'native-base';
 import * as firebase from 'firebase';
+import 'firebase/firestore';
+import * as Linking from 'expo-linking';
 
-
-function writeTestData() {
-  const db = firebase.firestore();
-  const docRef = db.collection('users').doc('alovelace');
-  docRef.set({
-    first: 'Ada',
-    last: 'Lovelace',
-    born: 1815
-  });
-}
 
 const BrowseScreen = ({ navigation }) => {
+  const [ articles, setArticles ] = useState([]);
+  const [ loading, setLoading ] = useState(true);
+  const articlesRef = firebase.firestore().collection('articles');
+
+  
+  const getArticles = async () => {
+    const articlesRef = firebase.firestore().collection('articles');
+    const snapshop = await articlesRef.get();
+
+    if (snapshop.empty) {
+      console.log("No mathing documents");
+      return;
+    }
+
+    let articleList = [];
+    snapshop.forEach(doc => {
+      let data = doc.data();
+      data['id'] = doc.id;
+      articleList.push(data);
+    })
+    setArticles(articleList);
+  }
+
+
+  const renderItem = ({ item }) => {
+    const articleLink = (item) => {
+      if (typeof item.basic_text == "undefined") {
+        Linking.openURL(`${item.url}`);
+      } else {
+        console.log(item);
+        navigation.navigate('Article', {
+          title: item.title,
+          basicText: item.basic_text,
+          intermediateText: item.intermediate_text,
+          advancedText: item.advanced_text,
+          url: item.url
+        })
+      }
+    }
+
+    return (
+      <ListItem>
+        <TouchableOpacity 
+          onPress={() => {articleLink(item);}}>
+          <Body>
+            <Text>{item.title}</Text>
+            <Text note>{item.url_text}</Text>
+          </Body>
+        </TouchableOpacity>
+      </ListItem>
+    );
+  }
+
+  useEffect(() => {
+    getArticles();
+  }, []);
+
+  if (!articles) {
+      return null;
+  }
+
   return (
     <Container>
-      <Content>
-        <Button 
-          iconLeft
-          block
-          primarty
-          style={styles.button}
-          onPress={() => navigation.navigate('itsnothappening')}
-        >
-          <Icon type="FontAwesome" name="arrow-right" />
-          <Text>It's not happening</Text>
-        </Button>
-        <Button 
-          iconLeft
-          block
-          primarty
-          style={styles.button}
-          onPress={() => navigation.navigate('itsnotus')}
-        >
-          <Icon type="FontAwesome" name="arrow-right" />
-          <Text>It's not us</Text>
-        </Button>
-        <Button 
-          iconLeft
-          block
-          primarty
-          style={styles.button}
-          onPress={() => navigation.navigate('itsnotbad')}
-        >
-          <Icon type="FontAwesome" name="arrow-right" />
-          <Text>It's not bad</Text>
-        </Button>
-
-        <Button 
-          iconLeft
-          block
-          primarty
-          style={styles.button}
-          onPress={() => writeTestData()}
-        >
-          <Icon type="FontAwesome" name="arrow-right" />
-          <Text>Write test data</Text>
-        </Button>
-
-      </Content>
+      <List
+        dataArray={articles}
+        renderItem={renderItem}
+        keyExtractor={(item) => String(item['id'])}
+      />
     </Container>
   );
 }
 
 
 const styles = StyleSheet.create({
-  button: {
-    marginTop: 10
+  buttonText: {
+    color: 'black'
   }
 })
 

@@ -16,7 +16,8 @@ import DrawerNavigator from "./src/navigation/DrawerNavigator";
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
-
+import { YellowBox } from 'react-native';
+YellowBox.ignoreWarnings(['Setting a timer']);
 
 // Initialize Firebase
 const firebaseConfig = {

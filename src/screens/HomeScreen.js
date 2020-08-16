@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text } from 'native-base';
+import React from 'react';
+import { Container, Button, Text } from 'native-base';
 
 
 const HomeScreen = ({ navigation }) => {
